@@ -1,16 +1,19 @@
 
 .cards {
-  margin: 30px;
-  display: flex;
+margin: 30px;
+display: flex;
 justify-content: space-evenly;
 }
 .card {
 margin-bottom: 30px;
 }
 .allCard {
-  width: 70%;
+width: 70%;
 display: flex; 
 flex-direction: column; 
+}
+.padding {
+  padding: 0 20px;
 }
 .cardHeader {
   background-color: rgb(60, 135, 214);
@@ -18,6 +21,7 @@ flex-direction: column;
   justify-content: space-between;
   height: 40px;
   color: white;
+  font-weight: 700;
   padding: 0 20px;
 }
 .headerRight {
@@ -30,7 +34,6 @@ hr {
  }
 .travelTime {
   display:flex;
-  /* flex-direction: row; */
   justify-content: space-between;
 }
 
@@ -75,6 +78,7 @@ hr {
   background-color: rgba(249, 166, 11, 0.831);
   border: none;
   color: white;
+  font-weight: 900;
   width: 100%;
   height: 40px;
 }

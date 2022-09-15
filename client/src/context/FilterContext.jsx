@@ -18,8 +18,7 @@ function FilterContextProvider({ children }) {
   const handlerMinPrice = () => {
     setData(data.filter((el) => (+el.flight.price.total.amount >= min)));
   };
-
-  // console.log(data);
+  console.log(data);
   const handlerOneChange = () => {
     setChecked((prev) => !prev);
     setData(data.filter((el) => (el.flight.legs[0].segments.length > 1) && (el.flight.legs[1].segments.length > 1)));
@@ -36,8 +35,12 @@ function FilterContextProvider({ children }) {
     setFlag((prev) => !prev);
     setData(data.sort((a, b) => b.flight.price.total.amount - a.flight.price.total.amount));
   };
+  const handlerTravelTime = () => {
+    setFlag((prev) => !prev);
+    setData(data.sort((a, b) => new Date(a.flight.legs[0].segments[0]?.departureDate) - new Date(b.flight.legs[0].segments[0]?.departureDate)))
+  }
   return (
-    <FilterContext.Provider value={{ flag, setFlag, checked, setChecked, toggel, setToggel, max, setMax, min, setMin, input, setInput, data, setData, handlerClick, handlerMinPrice, handlerOneChange, handlerNoChange, handlerAscending, handlerDescending }}>
+    <FilterContext.Provider value={{ flag, setFlag, checked, setChecked, toggel, setToggel, max, setMax, min, setMin, input, setInput, data, setData, handlerClick, handlerMinPrice, handlerOneChange, handlerNoChange, handlerAscending, handlerDescending, handlerTravelTime }}>
       {children}
     </FilterContext.Provider>
   );

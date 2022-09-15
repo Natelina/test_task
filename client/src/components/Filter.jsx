@@ -1,22 +1,22 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import axios from 'axios';
 import { FilterContext } from '../context/FilterContext';
 
-function Filter() {
+function Filter({uniqCarrier}) {
   const {
-    data,
     input,
     setMin,
     setMax,
     toggel, setToggel,
     checked, setChecked,
-    oneChecked, setOneChecked,
     setData,
     handlerClick,
     handlerOneChange,
     handlerNoChange,
     handlerAscending,
-    handlerDescending } = useContext(FilterContext);
+    handlerDescending,
+    handlerTravelTime,
+   } = useContext(FilterContext);
 
   const minPriceHandler = (e) => {
     setMin(e.target.value);
@@ -24,20 +24,13 @@ function Filter() {
   const maxPriceHendler = (e) => {
     setMax(e.target.value);
   };
-
   const handlerClean = () => {
     axios('http://localhost:3002/result')
       .then((res) => setData(res.data.flights));
-    // setToggel((prev) => !prev);
-    // setChecked((prev) => !prev);
   };
-  // const [carrier, setCarrier] = useState(['LOT Polish Airlines', 'Аэрофлот - российские авиалинии', 'Air France', 'KLM', 'TURK HAVA YOLLARI A.O.', 'Finnair Oyj', 'TURK HAVA YOLLARI A.O.']);
-  const [carrier, setCarrier] = useState([]);
-  const carrierArr = () => {
-    // data.filter((el) => setCarrier((prev) => [...prev, el.flight.carrier.caption]));
-  };
-  carrierArr();
-  console.log('carrier', carrier);
+  
+    console.log('uniqCarrier', uniqCarrier)
+
   const search = () => {
     handlerClean();
     setToggel((prev) => !prev);
@@ -46,18 +39,17 @@ function Filter() {
     handlerClean();
     setChecked((prev) => !prev);
   };
-  // const noChose = () => {
-  //   handlerClean();
-  //   setChecked((prev) => !prev);
-  // };
   const handlerSubmit = (e) => {
     e.preventDefault();
     e.target.reset();
   };
+
   const noChoseFunc = checked ? chose : handlerNoChange;
   const oneChoseFunc = checked ? chose : handlerOneChange;
   const choseFunc = toggel ? search : handlerClick;
   return (
+    <>
+    
     <div>
       <form onSubmit={handlerSubmit}>
         <div>
@@ -75,11 +67,10 @@ function Filter() {
 
           </div>
           <div>
-            <input type="radio" name="sort1" />
+            <input onClick={handlerTravelTime} id="travelTime" type="radio" name="sort1" />
             {' '}
-            - по времени в пути
+            <label htmlFor="travelTime">- по времени в пути</label>
           </div>
-
         </div>
         <div>
           <h4>Фильтровать</h4>
@@ -105,43 +96,12 @@ function Filter() {
             <input onChange={maxPriceHendler} name="maxPrice" value={input.maxPrice} className="inputPrice" type="text" />
           </div>
         </div>
-        <div>
-          <h4>Авиакомпании</h4>
-          <div>
-            <input type="checkbox" />
-            - LOT Polish Airlines
-          </div>
-          <div>
-            <input type="checkbox" />
-            - Аэрофлот - российские авиалинии
-          </div>
-          <div>
-            <input type="checkbox" />
-            - Air France
-          </div>
-          <div>
-            <input type="checkbox" />
-            - KLM
-          </div>
-          <div>
-            <input type="checkbox" />
-            - TURK HAVA YOLLARI A.O.
-          </div>
-          <div>
-            <input type="checkbox" />
-            - Finnair Oyj
-          </div>
-          <div>
-            <input type="checkbox" />
-            - TURK HAVA YOLLARI A.O.
-          </div>
-        </div>
         <button type="submit" onClick={choseFunc}>
           {!toggel ? 'Найти' : 'Показать всё'}
-
         </button>
-      </form>
-    </div>
+        </form>
+        </div>
+        </>
   );
 }
 
