@@ -2,4 +2,4 @@
 
 npm i json-server;
 
-npx json-server --watch flights.json --port 3003
+npx json-server --watch flights.json --port 3002
