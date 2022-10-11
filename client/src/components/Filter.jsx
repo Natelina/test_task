@@ -16,7 +16,7 @@ function Filter({uniqCarrier}) {
     handlerAscending,
     handlerDescending,
     handlerTravelTime,
-   } = useContext(FilterContext);
+  } = useContext(FilterContext);
 
   const minPriceHandler = (e) => {
     setMin(e.target.value);

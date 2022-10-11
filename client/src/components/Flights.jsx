@@ -17,10 +17,10 @@ function Flights() {
         setData(res.data.flights)
       })
   }, []);
-
+console.log('data', data);
   return (
     <div className="cards">
-      <Filter uniqCarrier={uniqCarrier} carrier={carrier} setCarrier={setCarrier} uniqCarrier={uniqCarrier} setUniqCarrier={setUniqCarrier} />
+      <Filter carrier={carrier} setCarrier={setCarrier} uniqCarrier={uniqCarrier} setUniqCarrier={setUniqCarrier} />
       <div className="allCard">
         {data.length ? data.map((el) => (
           <div className="card">
